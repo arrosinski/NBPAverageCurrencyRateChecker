@@ -1,6 +1,12 @@
-<?php 
+<?php
+
 declare(strict_types=1);
 
-Interface ApiClientInterface {
+namespace App\Client;
+
+use DateTimeImmutable;
+
+Interface ApiClientInterface
+{
     public function getDataFromApi(string $currency, DateTimeImmutable $startDate, DateTimeImmutable $endDate);
 }
