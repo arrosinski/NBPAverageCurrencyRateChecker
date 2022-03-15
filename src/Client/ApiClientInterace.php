@@ -6,7 +6,7 @@ namespace App\Client;
 
 use DateTimeImmutable;
 
-Interface ApiClientInterface
+interface ApiClientInterface
 {
-    public function getDataFromApi(string $currency, DateTimeImmutable $startDate, DateTimeImmutable $endDate);
+    public function getDataFromApi($currency, $startDate, $endDate);
 }
