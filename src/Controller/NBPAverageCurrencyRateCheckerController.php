@@ -23,7 +23,7 @@ class NBPAverageCurrencyRateCheckerController
             new DateTimeImmutable($request->get('endDate'))
         );
         
-        $nbpAverageCurrencyRateCheckerService->prepareAndCalculateDataForView();
-        //return new JsonResponse('average_price : 4,1505');
+        $averagePriceBidCalculated = $nbpAverageCurrencyRateCheckerService->prepareAndCalculateDataForView();
+        return new JsonResponse('average_price : ' . $averagePriceBidCalculated);
     }
 }

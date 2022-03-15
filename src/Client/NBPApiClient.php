@@ -6,19 +6,31 @@ namespace App\Client;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DateTimeImmutable;
 use Symfony\Component\HttpClient\HttpClient;
+use DateInterval;
 
 class NBPApiClient implements ApiClientInterface
 {
-    CONST NBP_API_URL = 'http://api.nbp.pl/api/exchangerates/rates/';
+    const NBP_API_URL = 'http://api.nbp.pl/api/exchangerates/rates/';
 
     
     public function getDataFromApi(string $currency, DateTimeImmutable $startDate, DateTimeImmutable $endDate)
     {
-             $response = (new HttpClient())->create()->request(
+        $startDateFixed = ($startDate->sub(new DateInterval("P1D")))->format('Y-m-d');
+        $response = (new HttpClient())->create()->request(
             'GET',
-            self::NBP_API_URL. 'A/'.$currency. '/' .$startDate->format('Y-m-d').'/' .$endDate->format('Y-m-d'). '/'
+            self::NBP_API_URL. 'C/'.$currency. '/' .$startDateFixed .'/' .$endDate->format('Y-m-d'). '/'
         );
-        dump($response->getContent());
-        die();
+         return $this->calculateAveragePrice($response->toArray());
+    }
+
+    private function calculateAveragePrice($bids)
+    {
+        $bidsSummed = 0;
+        foreach ($bids['rates'] as $bid) {
+            $bidsSummed += $bid['bid'];
+        }
+
+        $averageBidValue = $bidsSummed/count($bids['rates']);
+        return round($averageBidValue, 4);
     }
 }

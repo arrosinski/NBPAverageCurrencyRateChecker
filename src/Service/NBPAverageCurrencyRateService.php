@@ -15,7 +15,7 @@ class NBPAverageCurrencyRateService
     public function __construct(string $currency, DateTimeImmutable $startDate, DateTimeImmutable $endDate)
     {
         if (!in_array($currency, self::SUPPORTED_CURRENCIES)) {
-            $message = 'Unsupported Currency value provided, we only support'. self::SUPPORTED_CURRENCIES;
+            $message = 'Unsupported Currency value provided, we only support EUR,GBP,USD,CHF';
             throw new Exception($message, 416);
         }
         $this->currency = $currency;
@@ -26,10 +26,6 @@ class NBPAverageCurrencyRateService
     public function prepareAndCalculateDataForView()
     {
         $client = new NBPApiClient();
-        $client->getDataFromApi($this->currency, $this->startDate, $this->endDate);
-        dump($this->currency);
-        dump($this->startDate);
-        dump($this->endDate);
-        die();
+        return $client->getDataFromApi($this->currency, $this->startDate, $this->endDate);
     }
 }
