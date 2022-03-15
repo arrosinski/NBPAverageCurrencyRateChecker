@@ -8,9 +8,10 @@ class NBPAverageCurrencyRateCheckerController
 {
     /**
      * method to get Average Currency Rate from Service
+     * @Route("/currency/{curency}/{fromDate}/{toDate}", methods={"GET","HEAD"}) 
      */
-    public function getAverageCurrencyRateInDateRange(string $currency, DateTimeImmutable $fromDate, DateTimeImmutable $toDate)
+    public function getAverageCurrencyRateInDateRange():JsonResponse
     {
-        
+        return new JsonResponse('Average Price : 4,1212112');
     }
 }

@@ -7,5 +7,5 @@ kernel:
     type: annotation
 
 app_nbp_average_currency:
-    path: /currency
+    path: /currency/{currency}/{fromDate}/{toDate}
     controller: App\Controller\NBPAverageCurrencyRateCheckerController::getAverageCurrencyRateInDateRange
