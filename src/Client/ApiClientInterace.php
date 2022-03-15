@@ -8,5 +8,5 @@ use DateTimeImmutable;
 
 interface ApiClientInterface
 {
-    public function getDataFromApi($currency, $startDate, $endDate);
+    public function getDataFromApi(string $currency, DateTimeImmutable $startDate, DateTimeImmutable $endDate);
 }
